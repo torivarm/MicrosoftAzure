@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Set variables
+RESOURCE_GROUP="rg-demo-westeurope-001"
+LOCATION="westeurope"
+
+# Create Resource Group
+az group create --name $RESOURCE_GROUP --location $LOCATION
+
+# Create VNets and Subnets
+for i in {1..3}
+do
+    VNET_NAME="vnet-demo-westeurope-00$i"
+    
+    # Create VNet
+    az network vnet create \
+        --resource-group $RESOURCE_GROUP \
+        --name $VNET_NAME \
+        --address-prefix 10.$i.0.0/16 \
+        --location $LOCATION
+
+    # Create Subnets
+    for j in {1..2}
+    do
+        SUBNET_NAME="snet-demo-westeurope-$((i*100+j))"
+        
+        az network vnet subnet create \
+            --resource-group $RESOURCE_GROUP \
+            --vnet-name $VNET_NAME \
+            --name $SUBNET_NAME \
+            --address-prefix 10.$i.$j.0/24
+    done
+done
+
+echo "VNets and Subnets created successfully!"
