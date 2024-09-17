@@ -4,7 +4,7 @@
 RESOURCE_GROUP="rg-demo-westeurope-001"
 LOCATION="westeurope"
 NSG_NAME="nsg-demo-westeurope-001"
-ALLOWED_IP="x.x.x.x"  # Replace with your IP address
+ALLOWED_IP="129.241.236.65"  # Replace with your IP address
 
 # Check if resource group exists, create if it doesn't
 az group show --name $RESOURCE_GROUP &> /dev/null || \
