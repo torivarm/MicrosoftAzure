@@ -1,0 +1,14 @@
+az group create --name rg-demo-container --location westeurope
+az container create --resource-group rg-demo-container --name ci-demo-we-001 --image mcr.microsoft.com/azuredocs/aci-helloworld --dns-name-label timdemoaci001 --ports 80
+
+az acr build --image demo/custom-image-demo:v1 --registry critimdemo001 --file Dockerfile .
+
+az container create \
+  --resource-group rg-demo-container \
+  --name ci-demo-we-002 \
+  --image critimdemo001.azurecr.io/demo/custom-image-demo:v1 \
+  --registry-login-server critimdemo001.azurecr.io \
+  --registry-username critimdemo001 \
+  --registry-password xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+  --dns-name-label ci-demo-we-002 \
+  --ports 80
