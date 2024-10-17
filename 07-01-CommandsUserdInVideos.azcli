@@ -1,0 +1,8 @@
+# Video 01 - Create a Resource Group
+group=rg-demo-storage
+location=westeurope # Ikke bruk norway east, da det ikke er støttet for alt sammen under student subscription
+az group create -g $group -l $location
+
+# Create a storage account
+az storage account create - timstorage002sdf23rdf -g $group -l $location --sku Standard_LRS
+
